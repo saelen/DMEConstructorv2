@@ -3,6 +3,7 @@ require "active_record"
 # Use the following line instead (without the comment hash) if you are using JRuby
 #require "active_record"
 
+
 #Now define your classes from the database as always
 
 class UserTable
