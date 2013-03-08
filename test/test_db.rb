@@ -4,6 +4,7 @@ require "active_record"
 #require "active_record"
 
 
+
 #Now define your classes from the database as always
 
 class UserTable
