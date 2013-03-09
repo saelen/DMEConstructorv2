@@ -9,6 +9,9 @@ gem 'sqlite3'
 gem 'activerecord-sqlserver-adapter'
 gem 'tiny_tds'
 
+group :development, :test do
+  gem 'rspec-rails'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
