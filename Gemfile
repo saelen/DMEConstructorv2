@@ -9,8 +9,10 @@ gem 'sqlite3'
 gem 'activerecord-sqlserver-adapter'
 gem 'tiny_tds'
 gem 'bootstrap-sass'
+gem 'bcrypt-ruby'
 
 group :development, :test do
+  gem 'annotate'
   gem 'rspec-rails'
 end
 
