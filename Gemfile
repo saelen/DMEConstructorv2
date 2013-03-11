@@ -10,6 +10,7 @@ gem 'activerecord-sqlserver-adapter'
 gem 'tiny_tds'
 gem 'bootstrap-sass'
 gem 'bcrypt-ruby'
+gem 'nokogiri'
 
 group :development, :test do
   gem 'annotate'

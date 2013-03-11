@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 40px;
 }
 
 section {
@@ -62,11 +62,6 @@ p {
   font-weight: bold;
   line-height: 1;
   text-decoration: none;
-  &:hover {
-    color: #0088cc;
-    text-decoration: none;
-    background-color: #ffffff;
-  }
 }
 
 @mixin box_sizing {
@@ -80,4 +75,17 @@ p {
   float: left;
   width: 100%;
   @include box_sizing;
+}
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+  background-color: transparent;
+}
+
+a:hover {
+  background-color: transparent;
+}
+
+a:hover,
+a:focus {
+  text-decoration: none;
 }
