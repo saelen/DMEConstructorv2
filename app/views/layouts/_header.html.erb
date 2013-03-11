@@ -4,7 +4,6 @@
       <%= link_to "DMEConstructor", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to 'Home', root_path %></li>
           <li>
             <% if signed_in? %>
                 <%= link_to 'Sign out', signout_path %>

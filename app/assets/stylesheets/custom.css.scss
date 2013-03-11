@@ -77,10 +77,6 @@ p {
   @include box_sizing;
 }
 
-.table tbody tr:hover td, .table tbody tr:hover th {
-  background-color: transparent;
-}
-
 a:hover {
   background-color: transparent;
 }
