@@ -3,6 +3,9 @@ DMEConstructor::Application.routes.draw do
 
   match '/', to: 'static_pages#home'
   match '/about', to: 'static_pages#about'
+  match '/signin', to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy'
+  resources :sessions, only: [:new, :create, :destroy]
 
   resources :users
 

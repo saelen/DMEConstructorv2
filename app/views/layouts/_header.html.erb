@@ -4,17 +4,25 @@
       <%= link_to "DMEConstructor", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "Sign in", '#' %></li>
-          <div class="btn-group">
-            <div class="btn dropdown-toggle" data-toggle="dropdown">
-              Admin
-              <span class="caret"></span>
-            </div>
-            <ul class="dropdown-menu">
-              <li><%= link_to 'Users', users_path %></li>
-            </ul>
-          </div>
+          <li><%= link_to 'Home', root_path %></li>
+          <li>
+            <% if signed_in? %>
+                <%= link_to 'Sign out', signout_path %>
+            <% else %>
+                <%= link_to 'Sign in', signin_path %>
+            <% end %>
+          </li>
+          <% if signed_in? %>
+              <div class="btn-group">
+                <div class="btn dropdown-toggle" data-toggle="dropdown">
+                  Admin
+                  <span class="caret"></span>
+                </div>
+                <ul class="dropdown-menu">
+                  <li><%= link_to 'Users', users_path %></li>
+                </ul>
+              </div>
+          <% end %>
         </ul>
       </nav>
     </div>
