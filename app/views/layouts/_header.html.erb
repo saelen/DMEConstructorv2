@@ -18,7 +18,10 @@
                   <span class="caret"></span>
                 </div>
                 <ul class="dropdown-menu">
+                  <li><%= link_to 'Roles', '#' %></li>
                   <li><%= link_to 'Users', users_path %></li>
+                  <li class="divider"></li>
+                  <li><%= link_to 'Connections', connections_path %></li>
                 </ul>
               </div>
           <% end %>

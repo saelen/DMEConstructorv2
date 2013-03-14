@@ -1,0 +1,11 @@
+<% @test_connection_results = @connection.test_connection
+if @test_connection_results[:success]
+%>
+$("#test_connection_results")
+        .attr('class', 'alert alert-success')
+        .html('<b><%= @connection.name %></b> successfully connected.');
+<%else%>
+$("#test_connection_results")
+        .attr('class', 'alert alert-error')
+        .html('<b><%= @connection.name %></b> Failed.<br /><%= @test_connection_results[:message] %>');
+<%end%>

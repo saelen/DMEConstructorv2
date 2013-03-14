@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130311201735) do
+ActiveRecord::Schema.define(:version => 20130313143244) do
+
+  create_table "connections", :force => true do |t|
+    t.string "adapter"
+    t.string "host"
+    t.string "username"
+    t.string "default_database"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string "name"
+    t.string "password"
+  end
 
   create_table "users", :force => true do |t|
     t.string "name"

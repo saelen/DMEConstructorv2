@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_filter :correct_user, only: [:edit, :update, :destroy]
-  before_filter :signed_in_user
 
   # GET /users
   # GET /users.json
@@ -108,12 +107,5 @@ class UsersController < ApplicationController
   def correct_user #TODO: Check for Admin here too!
     @user = User.find(params[:id])
     redirect_to(users_path, :notice => 'You do not have permissions to edit other user\'s profiles.') unless current_user?(@user)
-  end
-
-  def signed_in_user
-    unless signed_in?
-      store_location
-      redirect_to signin_url, notice: "Please sign in."
-    end
   end
 end

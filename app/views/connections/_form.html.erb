@@ -1,0 +1,72 @@
+<%= form_for(@connection, :html => {:class => 'form-horizontal'}) do |f| %>
+    <% if @connection.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@connection.errors.count, "error") %> prohibited this connection from being saved:</h2>
+
+          <ul>
+            <% @connection.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <div class="control-group<%= if @connection.errors['name'].count > 0 then
+                                   ' error'
+                                 end %> ">
+      <%= f.label :name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, :placeholder => 'Name' %>
+      </div>
+    </div>
+    <div class="control-group<%= if @connection.errors['adapter'].count > 0 then
+                                   ' error'
+                                 end %>">
+      <%= f.label :adapter, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :adapter, :placeholder => 'Adapter' %>
+      </div>
+    </div>
+    <div class="control-group<%= if @connection.errors['host'].count > 0 then
+                                   ' error'
+                                 end %>">
+      <%= f.label :host, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :host, :placeholder => 'Host' %>
+      </div>
+    </div>
+    <div class="control-group<%= if @connection.errors['default_database'].count > 0 then
+                                   ' error'
+                                 end %>">
+      <%= f.label :default_database, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :default_database, :placeholder => 'Default Database' %>
+      </div>
+    </div>
+    <div class="control-group<%= if @connection.errors['username'].count > 0 then
+                                   ' error'
+                                 end %>">
+      <%= f.label :username, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :username, :placeholder => 'Username' %>
+      </div>
+    </div>
+    <div class="control-group<%= if @connection.errors['password'].count > 0 then
+                                   ' error'
+                                 end %>">
+      <%= f.label :password, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.password_field :password, :placeholder => 'Password' %>
+      </div>
+    </div>
+    <div class="control-group<%= if @connection.errors['password_confirmation'].count > 0 then
+                                   ' error'
+                                 end %>">
+      <%= f.label :password_confirmation, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.password_field :password_confirmation, :placeholder => 'Password' %>
+      </div>
+    </div>
+    <div class="actions">
+      <%= f.submit :class => 'btn btn-primary' %>
+    </div>
+<% end %>
