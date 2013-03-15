@@ -40,7 +40,18 @@ class ConnectionsController < ApplicationController
   end
 
   def test
-    @connection = Connection.find(params[:id])
+    if params[:id].nil? || params[:id].empty?
+      @connection = Connection.new()
+      @connection.adapter = params[:adapter]
+      @connection.host = params[:host]
+      @connection.default_database = params[:defaultdatabase]
+      @connection.username = params[:username]
+      @connection.password = params[:password]
+      @connection.name = params[:name]
+    else
+      @connection = Connection.find(params[:id])
+    end
+
     respond_to do |format|
       format.js { render :partial => 'connections/testconnection', :layout => false }
     end

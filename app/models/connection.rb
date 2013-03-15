@@ -1,13 +1,12 @@
 class Connection < ActiveRecord::Base
-  attr_accessible :name, :adapter, :default_database, :host, :password, :password_confirmation, :username
+  attr_accessible :name, :adapter, :default_database, :host, :password, :username
   attr_accessor :uc
 
   validates_presence_of :adapter, :host
 
   validates :name, presence: true, uniqueness: {case_sensitive: false}
   validates :password, presence: true
-  validates_confirmation_of :password
-  validates :password_confirmation, presence: true
+  validate :val_valid_connection
 
   before_save { |connection| connection.name = connection.name.upcase }
   before_save { |connection| connection.host = connection.host.downcase }
@@ -28,14 +27,25 @@ class Connection < ActiveRecord::Base
   end
 
   private
+  def val_valid_connection
+    setup_connection
+    @tc = test_connection
+    if @tc[:false]
+      errors.add(:base, 'Could not connect to database: ' + @tc[:message])
+    end
+  end
+
   def setup_connection
     self.uc = Class.new(ActiveRecord::Base)
-    self.uc.establish_connection(
-        :adapter => self.adapter,
-        :host => self.host,
-        :username => self.username,
-        :password => self.password,
-        :database => self.default_database)
-
+    begin
+      self.uc.establish_connection(
+          :adapter => self.adapter,
+          :host => self.host,
+          :username => self.username,
+          :password => self.password,
+          :database => self.default_database)
+    rescue Exception => e
+      #We don't need to do anything with the exception
+    end
   end
 end

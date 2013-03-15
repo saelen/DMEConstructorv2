@@ -1,4 +1,4 @@
-<%= form_for(@connection, :html => {:class => 'form-horizontal'}) do |f| %>
+<%= form_for(@connection, :html => {:autocomplete => :off, :id => 'connection_form', :class => 'form-horizontal'}) do |f| %>
     <% if @connection.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@connection.errors.count, "error") %> prohibited this connection from being saved:</h2>
@@ -55,18 +55,14 @@
                                  end %>">
       <%= f.label :password, :class => 'control-label' %>
       <div class="controls">
-        <%= f.password_field :password, :placeholder => 'Password' %>
+        <%= f.text_field :password, :placeholder => 'Password' %>
       </div>
     </div>
-    <div class="control-group<%= if @connection.errors['password_confirmation'].count > 0 then
-                                   ' error'
-                                 end %>">
-      <%= f.label :password_confirmation, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.password_field :password_confirmation, :placeholder => 'Password' %>
-      </div>
-    </div>
-    <div class="actions">
-      <%= f.submit :class => 'btn btn-primary' %>
+    <div class="btn-group">
+      <%= link_to 'Test Connection', test_connections_path, :id => 'test_connection',
+                  :remote => true, :method => 'get', :class => 'btn btn-primary'
+      %>
+      <%= link_to 'Update Connection', 'javascript:void(0)', class: 'btn btn-primary disabled', id: 'form_submit_btn' %>
     </div>
 <% end %>
+<%= render 'testconnection' %>
