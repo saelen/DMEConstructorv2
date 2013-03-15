@@ -26,7 +26,8 @@
   <%= link_to 'Test Connection', test_connections_path(id: @connection.id), :id => 'test_connection',
               :remote => true, :method => 'get', :class => 'btn btn-primary'
   %>
-  <%= link_to 'Edit', edit_connection_path(@connection), :id => 'edit', :method => 'get', :class => 'btn btn-primary' %>
+  <%= link_to 'Edit', edit_connection_path(@connection), :id => 'edit', :method => 'get', :class => 'btn btn-primary',
+              data: edit_connection_path(@connection) %>
 </div>
 <%= render 'testconnection' %>
 

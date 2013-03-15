@@ -17,6 +17,7 @@ class Connection < ActiveRecord::Base
   after_update :setup_connection
 
   def test_connection
+    setup_connection
     begin
       @message = self.uc.connection.active?
     rescue => e

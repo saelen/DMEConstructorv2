@@ -11,5 +11,6 @@ $("#test_connection_results")
         .attr('class', 'alert alert-error')
         .html('<b><%= @connection.name %></b> Failed.<br /><%= @test_connection_results[:message] %>');
 <%end%>
-$("#edit").attr("href", "<%= edit_connection_path(1) %>").attr("data-method", "get").removeClass("disabled");
+$("#edit").attr("href", $("#edit").attr("data")).attr("data-method", "get").removeClass("disabled");
+
 $("#connection_form :input").attr("disabled", false);

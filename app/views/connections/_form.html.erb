@@ -23,7 +23,7 @@
                                  end %>">
       <%= f.label :adapter, :class => 'control-label' %>
       <div class="controls">
-        <%= f.text_field :adapter, :placeholder => 'Adapter' %>
+        <%= f.select :adapter, [['SQL Server', 'sqlserver']] %>
       </div>
     </div>
     <div class="control-group<%= if @connection.errors['host'].count > 0 then
@@ -62,7 +62,7 @@
       <%= link_to 'Test Connection', test_connections_path, :id => 'test_connection',
                   :remote => true, :method => 'get', :class => 'btn btn-primary'
       %>
-      <%= link_to 'Update Connection', 'javascript:void(0)', class: 'btn btn-primary disabled', id: 'form_submit_btn' %>
+      <%= form_submit_button %>
     </div>
 <% end %>
 <%= render 'testconnection' %>

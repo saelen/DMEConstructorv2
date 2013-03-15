@@ -48,6 +48,9 @@ class ConnectionsController < ApplicationController
       @connection.username = params[:username]
       @connection.password = params[:password]
       @connection.name = params[:name]
+      if !params[:previous_id].nil? && !params[:previous_id].empty?
+        @previous_connection = Connection.find(params[:previous_id])
+      end
     else
       @connection = Connection.find(params[:id])
     end

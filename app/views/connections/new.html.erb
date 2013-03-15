@@ -1,3 +1,5 @@
 <h1><%= link_to 'Connections', connections_path %> > New Connection</h1>
 
-<%= render 'form' %>
+<%= render 'form', :form_submit_button =>
+        link_to('Create Connection', 'javascript:void(0)', class: 'btn btn-primary disabled',
+                id: 'form_submit_btn', data: new_connection_path) %>
