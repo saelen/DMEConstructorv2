@@ -1,0 +1,28 @@
+<% provide(:title, @dme_table.display_name) %>
+
+
+<p id="notice"><%= notice %></p>
+<h1>
+  <%= link_to 'Construction Tables', dme_tables_path %> > <%= @dme_table.display_name %>
+</h1>
+<table class="table table-striped">
+  <tr>
+    <td>Display Name</td>
+    <td><%= @dme_table.display_name %></td>
+  </tr>
+  <tr>
+    <td>Database</td>
+    <td><%= @dme_table.database_name %></td>
+  </tr>
+  <tr>
+    <td>Connection</td>
+    <td><%= @dme_table.connection.name %></td>
+  </tr>
+  <tr>
+    <td>Table Name</td>
+    <td><%= @dme_table.table_name %></td>
+  </tr>
+</table>
+<div class="btn-group">
+  <%= link_to 'Edit', edit_table_dme_table_path(@dme_table), :id => 'edit', :method => 'get', :class => 'btn btn-primary' %>
+</div>

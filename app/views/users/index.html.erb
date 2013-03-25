@@ -2,28 +2,28 @@
 
 <table class='table table-bordered table-striped table-condensed'>
   <tr>
+    <th>User Name</th>
     <th>Name</th>
-    <th>Email</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
   <% @users.each do |user| %>
-      <% if user.email == current_user.email %>
+      <% if user.username == current_user.username %>
           <tr class='success'>
       <% else %>
           <tr>
       <% end %>
+      <td><%= user.username %></td>
       <td><%= user.name %></td>
-      <td><%= user.email %></td>
       <td width='16'><%= link_to image_tag("MagnifyingGlass_16x16.png", :border => 0, :size => '16x16'), user %></td>
       <td width='16'><%= link_to image_tag("edit_32x32.png", :border => 0, :size => '16x16'), edit_user_path(user) %></td>
-      <td width='16'><%= link_to image_tag("trash_32x32.png", :border => 0, :size => '16x16'), user, method: :delete, data: {confirm: 'Are you are you want to delete <'+user.name+'>?'} unless user.email == current_user.email %></td>
+      <td width='16'><%= link_to image_tag("trash_32x32.png", :border => 0, :size => '16x16'), user, method: :delete, data: {confirm: 'Are you are you want to delete <'+user.name+'>?'} unless user.username == current_user.username %></td>
       </tr>
   <% end %>
 </table>
 
 <br/>
 
-<%= button_to 'New Connection', new_user_path, :method => 'get', :class => 'btn btn-primary' %>
+<%= button_to 'New User', new_user_path, :method => 'get', :class => 'btn btn-primary' %>

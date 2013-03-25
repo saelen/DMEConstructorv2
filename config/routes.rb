@@ -1,4 +1,6 @@
 DMEConstructor::Application.routes.draw do
+
+
   root to: 'static_pages#home'
 
   match '/', to: 'static_pages#home'
@@ -12,9 +14,20 @@ DMEConstructor::Application.routes.draw do
   resources :connections do
     collection do
       get 'test'
+      get 'database_list'
+      get 'table_list'
     end
   end
 
+  resources :dme_tables, :except => [:edit] do
+    collection do
+      get 'subform'
+    end
+    member do
+      get 'edit_table'
+      get 'edit_fields'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -34,7 +47,7 @@ DMEConstructor::Application.routes.draw do
   #   resources :products do
   #     member do
   #       get 'short'
-  #       post 'toggle'
+  #       post 'toggle'           l
   #     end
   #
   #     collection do

@@ -1,0 +1,10 @@
+<ul class="nav nav-tabs">
+  <% ['Table', 'Fields'].each { |tab| %>
+      <% if active.upcase == tab.upcase then %>
+          <li class="active"><a><%= tab %></a></li>
+      <% else %>
+          <li><%= link_to tab, polymorphic_path(['edit_'+tab.downcase, @dme_table]) %></li>
+      <% end %>
+      <% edit_fields_dme_table_path() %>
+  <% } %>
+</ul>

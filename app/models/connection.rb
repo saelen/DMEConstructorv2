@@ -1,4 +1,6 @@
 class Connection < ActiveRecord::Base
+  has_many :dme_tables
+
   attr_accessible :name, :adapter, :default_database, :host, :password, :username
   attr_accessor :uc
 
@@ -25,6 +27,14 @@ class Connection < ActiveRecord::Base
     else
       {:success => true, :message => @message}
     end
+  end
+
+  def database_list
+    self.uc.connection.select_values('sp_databases')
+  end
+
+  def table_list
+    self.uc.connection.tables
   end
 
   private

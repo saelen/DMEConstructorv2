@@ -1,0 +1,9 @@
+<% provide(:title, 'Edit Construction Table') %>
+
+<p id="notice"><%= notice %></p>
+<h1><%= link_to 'Construction Tables', dme_tables_path %> > Editing Construction Table</h1>
+
+<%= render 'edit_navbar', :active => 'table' %>
+<%= render 'form', :form_submit_button =>
+        link_to('Edit Construction Table', edit_table_dme_table_path, class: 'btn btn-primary',
+                id: 'form_submit_button', data: edit_table_dme_table_path) %>

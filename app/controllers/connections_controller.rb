@@ -1,5 +1,5 @@
 class ConnectionsController < ApplicationController
-  helper_method :test
+  helper_method :test, :database_list
 
   def destroy
     @connection = Connection.find(params[:id])
@@ -73,6 +73,22 @@ class ConnectionsController < ApplicationController
     @connection = Connection.find(params[:id])
   end
 
+  def database_list
+    @connection = Connection.find(params[:id])
+    respond_to do |format|
+      format.json { render json: @connection.database_list }
+    end
+  end
+
+  def table_list
+    @connection = Connection.find(params[:id])
+    @connection.default_database = params[:dbname]
+    @connection.test_connection
+    respond_to do |format|
+      format.json { render json: @connection.table_list }
+    end
+  end
+
   def create
     @connection = Connection.new(params[:connection])
 
@@ -98,4 +114,5 @@ class ConnectionsController < ApplicationController
       format.json { render json: @connection }
     end
   end
+
 end

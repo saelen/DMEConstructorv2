@@ -10,20 +10,20 @@
           </ul>
         </div>
     <% end %>
-    <div class="control-group<%= if @user.errors['name'].count > 0 then
+    <div class="control-group<%= if @user.errors['username'].count > 0 then
                                    ' error'
                                  end %> ">
-      <%= f.label :name, :class => 'control-label' %>
+      <%= f.label :username, :class => 'control-label' %>
       <div class="controls">
-        <%= f.text_field :name, :placeholder => 'Name' %>
+        <%= f.text_field :username, :placeholder => 'User Name' %>
       </div>
     </div>
-    <div class="control-group<%= if @user.errors['email'].count > 0 then
+    <div class="control-group<%= if @user.errors['name'].count > 0 then
                                    ' error'
                                  end %>">
-      <%= f.label :email, :class => 'control-label' %>
+      <%= f.label :name, :class => 'control-label' %>
       <div class="controls">
-        <%= f.text_field :email, :placeholder => 'Email' %>
+        <%= f.text_field :name, :placeholder => 'Name of User' %>
       </div>
     </div>
     <div class="control-group<%= if @user.errors['password'].count > 0 then

@@ -1,0 +1,57 @@
+<%= form_for(@dme_table, :html => {:autocomplete => :off, :id => 'dme_table_form', :class => 'form-horizontal'}) do |f| %>
+    <% if @dme_table.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@dme_table.errors.count, "error") %> prohibited this construction table from being
+            saved:</h2>
+
+          <ul>
+            <% @dme_table.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <div class="control-group<%= if @dme_table.errors['display_name'].count > 0 then
+                                   ' error'
+                                 end %> ">
+      <%= f.label :display_name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :display_name, :placeholder => 'Display Name' %>
+      </div>
+    </div>
+    <div class="control-group<%= if @dme_table.errors['connection_id'].count > 0 then
+                                   ' error'
+                                 end %> ">
+      <%= f.label :connection_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select 'connection_id', options_from_collection_for_select(@connections, 'id', 'name', @dme_table.connection_id ||= @connections.first().id) %>
+      </div>
+    </div>
+    <div class="control-group<%= if @dme_table.errors['database_name'].count > 0 then
+                                   ' error'
+                                 end %> ">
+      <%= f.label :database_name, :class => 'control-label' %>
+      <div class="controls">
+        <% if @dme_table.connection then %>
+            <%= f.select 'database_name', options_for_select(@dme_table.connection.database_list, @dme_table.database_name) %>
+        <% else %>
+            <%= f.select 'database_name', options_for_select(@connections.first().database_list) %>
+        <% end %>
+      </div>
+    </div>
+    <div class="control-group<%= if @dme_table.errors['table_name'].count > 0 then
+                                   ' error'
+                                 end %> ">
+      <%= f.label :table_name, :class => 'control-label' %>
+      <div class="controls">
+        <% if @dme_table.connection.default_database then %>
+            <%= f.select 'table_name', options_for_select(@dme_table.connection.table_list, @dme_table.table_name) %>
+        <% else %>
+            <%= f.select 'table_name', options_for_select(@connections.first().table_list) %>
+        <% end %>
+      </div>
+    </div>
+    <div class="actions">
+      <%= f.submit :class => 'btn btn-primary' %>
+    </div>
+<% end %>

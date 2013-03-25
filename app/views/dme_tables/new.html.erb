@@ -1,0 +1,6 @@
+<% provide(:title, 'New Construction Table') %>
+<h1><%= link_to 'Construction Tables', dme_tables_path %> > New Construction Table</h1>
+
+<%= render 'form', :form_submit_button =>
+        link_to('Create Construction Table', new_dme_table_path, class: 'btn btn-primary',
+                id: 'form_submit_button', data: new_dme_table_path) %>
