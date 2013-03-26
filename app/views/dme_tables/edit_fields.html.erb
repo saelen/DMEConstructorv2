@@ -4,3 +4,30 @@
 <h1><%= link_to 'Construction Tables', dme_tables_path %> > Editing Construction Table</h1>
 
 <%= render 'edit_navbar', :active => 'fields' %>
+
+<table class="table table-striped table-bordered">
+  <thead>
+  <tr>
+    <td>Column Name</td>
+    <td>Column Type</td>
+    <td>Column Scale</td>
+    <td>Column Limit</td>
+    <td>Display Name</td>
+    <td>Type</td>
+    <td>Active</td>
+    <td>Lookup</td>
+  </tr>
+  </thead>
+  <% @dme_table.dme_fields.order('sort_order asc').each do |f| %>
+      <tr <%= 'class=error' if !f.active %>>
+        <td><%= f.db_column_name %></td>
+        <td><%= f.db_type %></td>
+        <td><%= f.db_scale %></td>
+        <td><%= f.db_limit %></td>
+        <td><%= f.display_name %></td>
+        <td><%= f.type %></td>
+        <td><%= image_tag('checkmark.png', :size => '16x16') if f.active? %></td>
+        <td><%= image_tag('checkmark.png', :size => '16x16') if f.lookup? %></td>
+      </tr>
+  <% end %>
+</table>
