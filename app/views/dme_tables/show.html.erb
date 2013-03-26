@@ -45,8 +45,8 @@
         <td><%= f.db_limit %></td>
         <td><%= f.display_name %></td>
         <td><%= f.type %></td>
-        <td><%= image_tag('checkmark.png', :size => '16x16') if f.active? %></td>
-        <td><%= image_tag('checkmark.png', :size => '16x16') if f.lookup? %></td>
+        <td style='text-align: center'><%= image_tag('checkmark.png', :size => '16x16') if f.active? %></td>
+        <td style='text-align: center'><%= image_tag('checkmark.png', :size => '16x16') if f.lookup? %></td>
       </tr>
   <% end %>
 </table>
