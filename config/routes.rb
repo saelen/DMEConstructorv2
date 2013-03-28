@@ -8,7 +8,7 @@ DMEConstructor::Application.routes.draw do
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'
   resources :sessions, only: [:new, :create, :destroy]
-  resources :dme_fields, only: [:destroy]
+  resources :dme_fields, only: [:destroy, :update]
   resources :users
 
   resources :connections do

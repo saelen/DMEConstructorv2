@@ -15,4 +15,20 @@ class DmeFieldsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def update
+    @dme_field = DmeField.find(params[:id])
+    respond_to do |format|
+      if @dme_field.update_attributes(params[:object])
+        format.html do
+          logger.debug "XHR status: #{request.xhr?} format: #{format}"
+          if request.xhr?
+            logger.debug "We are an XHR request"
+            render :partial => 'dirt'
+          end
+        end
+      else
+      end
+    end
+  end
 end

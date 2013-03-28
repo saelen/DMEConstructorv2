@@ -47,11 +47,27 @@ class DmeTable < ActiveRecord::Base
   end
 
   private
+  class CustomMigration < ActiveRecord::Migration
+  end
+
   def setup_connection
     begin
       self.ut = Connection.find_by_id(self.connection_id).uc.clone
       self.ut.table_name = self.table_name
-    rescue Exception => e
+
+      def (self.ut).migration
+        @migration ||= CustomMigration.new()
+      end
+
+      def (self.ut.migration).connection
+        =(connection)
+        @connection = connection
+      end
+
+      self.ut.migration.connection = self.ut.connection
     end
+  rescue Exception => e
+    logger.error "error in setup connection: " + e.message
   end
 end
+

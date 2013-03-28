@@ -1,6 +1,28 @@
 require "rubygems"
 require "active_record"
 
+ActiveRecord::Base.establish_connection(
+    :adapter => "sqlserver",
+    :host => "localhost",
+    :username => "dmeadmin",
+    :password => "admin",
+    :database => "DMECentral")
+
+class CustomMigration < ActiveRecord::Migration
+end
+
+
+@c = CustomMigration.new()
+
+def @c.change
+  for i in 0..5
+    send 'add_column', 'asdf', 'dirtZZEA'+i.to_s, 'string'.to_sym
+  end
+end
+
+@c.migrate :up
+exit(1)
+
 class UserTable
   attr_accessor :utar
 
@@ -24,6 +46,7 @@ class UserTable
       {:success => true, :message => @message}
     end
   end
+
 end
 mytable = UserTable.new('asdf')
 @testconnectionresults = mytable.testconnection
@@ -43,12 +66,7 @@ end
 #mytable.utar.create(:col1 => 'from ruby!')
 
 class CustomMigration < ActiveRecord::Migration
-  def up
-    add_column 'mark_tests', 'col2', :string
-  end
-
-  def down
-    remove_column 'mark_tests', 'col2'
+  def change
+    add_column 'asdf', 'col2', :string
   end
 end
-

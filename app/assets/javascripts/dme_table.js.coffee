@@ -18,21 +18,23 @@ $(document).ready ->
 
 hide_all_edit_icons = () ->
   $("input").each ->
+    $(this).prop('disabled', true)
     $(this).hide()
   $("tr").each ->
-    $(this).removeClass("info")
+    $(this).removeClass("info").removeClass("no_padding")
   $("a.field_edit").each ->
     $(this).hide()
   $("a.field_save").each ->
     $(this).hide()
   $("a.field_cancel").each ->
     $(this).hide()
+  $("span.dme_field_label").each ->
+    $(this).show()
+
 
 restore_edit = () ->
   hide_all_edit_icons()
   $("a.field_edit").each ->
-    $(this).show()
-  $("span.dme_field_label").each ->
     $(this).show()
 
 $(document).ready ->
@@ -49,16 +51,18 @@ $(document).ready ->
       iput=$(this).find("input.inline_edit")
       iput.width($(this).width())
       iput.height($(this).height())
+      $(this).width($(this).width())
+      $(this).height($(this).height())
+      if iput.prop("hidden") != true
+        iput.val($(this).find("span.dme_field_label").text())
+    row.addClass("no_padding")
     row.find("td").find("input.inline_edit").each ->
-      $(this).show()
+      $(this).prop('disabled', false)
+      if $(this).prop("hidden") != true
+        $(this).show()
+      row.find("span.dme_field_label").each ->
+        $(this).hide()
 
-
-    #  alert(row.find("#td_db_column_name").width())
-    #i.width($(this).parent("td").width())
-    #i.height($(this).parent("td").height())
-    #i.show()
-    $("span.dme_field_label").each ->
-      $(this).hide()
 
 $(document).ready ->
   $("a.field_cancel").on "click", ->
@@ -66,18 +70,17 @@ $(document).ready ->
 
 $(document).ready ->
   $("a.field_save").on "click", ->
-    restore_edit()
-#    $("#field_edit").each (index)->
-#      console.log index + ": " + $(this).text()
+    $.ajax
+      url: "/dme_fields/" + (($(this).parent("td")).parent("tr")).attr("id")
+      type: 'PUT'
+      data: $("form").serialize()
+      success: (data) ->
+        console.log($("form").serialize())
+        restore_edit()
+      always: ->
+        alert ($("form").serialize())
+        restore_edit()
+      error: ->
+        alert('dirt')
+        restore_edit()
 
-
-#$(document).ready ->
-#  $("a#edit_table_tab")
-#    .bind("ajax:success", (evt, data, status, xhr) ->
-#      $("#dme").html(xhr.responseText)
-#     # $(this).parent().addClass("active")
-#    )
-
-#$(document).ready ->
-#  $("a[data-toggle=\"tab\"]").on "shown", (e) ->
-#    alert('Dirt')
