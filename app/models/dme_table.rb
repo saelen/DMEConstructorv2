@@ -60,7 +60,7 @@ class DmeTable < ActiveRecord::Base
       end
 
       def (self.ut.migration).connection
-        =(connection)
+        = (connection)
         @connection = connection
       end
 

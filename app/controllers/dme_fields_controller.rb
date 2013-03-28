@@ -19,15 +19,20 @@ class DmeFieldsController < ApplicationController
   def update
     @dme_field = DmeField.find(params[:id])
     respond_to do |format|
-      if @dme_field.update_attributes(params[:object])
+      begin
+        @dme_field.update_attributes(params[:object])
+        @dme_field.dme_table.check_fields
         format.html do
-          logger.debug "XHR status: #{request.xhr?} format: #{format}"
-          if request.xhr?
-            logger.debug "We are an XHR request"
-            render :partial => 'dirt'
-          end
+          render :partial => 'field_row', :locals => {:f => DmeField.find(params[:id])} if request.xhr?
         end
-      else
+      rescue Exception => e
+        @dme_field.dme_table.check_fields
+        logger.debug "Exception Class #{e.class}"
+        logger.debug "update failed for field with message #{e.message}"
+        format.html do
+          render :partial => 'field_row', :locals => {:f => DmeField.find(params[:id])},
+                 :status => :internal_server_error if request.xhr?
+        end
       end
     end
   end

@@ -70,17 +70,19 @@ $(document).ready ->
 
 $(document).ready ->
   $("a.field_save").on "click", ->
+    row = (($(this).parent("td")).parent("tr"))
     $.ajax
-      url: "/dme_fields/" + (($(this).parent("td")).parent("tr")).attr("id")
+      url: "/dme_fields/" + row.attr("id")
       type: 'PUT'
       data: $("form").serialize()
+      error: (xhr) ->
+        row.replaceWith xhr.responseText
+        restore_edit()
       success: (data) ->
-        console.log($("form").serialize())
+        row.replaceWith data
         restore_edit()
       always: ->
         alert ($("form").serialize())
         restore_edit()
-      error: ->
-        alert('dirt')
-        restore_edit()
+
 
