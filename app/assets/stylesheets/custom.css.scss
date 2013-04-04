@@ -111,3 +111,16 @@ input.inline_edit {
   padding-bottom: 0px;
   padding-top: 0px;
 }
+
+.sortable tr:hover {
+  cursor: hand;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+.sortable tr.ui-sortable-helper {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}

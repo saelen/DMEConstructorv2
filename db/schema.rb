@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130326161535) do
+ActiveRecord::Schema.define(:version => 20130329192507) do
 
   create_table "connections", :force => true do |t|
     t.string "adapter"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20130326161535) do
     t.integer "db_limit"
     t.boolean "visible", :default => false
     t.integer "sort_order"
+    t.string "db_precision"
   end
 
   create_table "dme_tables", :force => true do |t|

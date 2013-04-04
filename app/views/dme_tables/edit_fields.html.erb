@@ -5,27 +5,33 @@
 
 <%= render 'edit_navbar', :active => 'fields' %>
 
-<div id="log"></div>
-
+<%= link_to 'New Field', new_dme_table_dme_field_path(@dme_table), :class => 'btn btn-mini btn-primary', :id => 'inline_add_record', :remote => true %>
 <form autocomplete="off">
   <table class="table table-striped table-bordered inline_edit">
     <thead>
     <tr>
-      <td style='width: 38px'></td>
+      <td>
+        <div style="width: 38px"></div>
+      </td>
       <td>Column Name</td>
       <td>Column Type</td>
+      <td>Column Precision</td>
       <td>Column Scale</td>
       <td>Column Limit</td>
       <td>Display Name</td>
       <td>Type</td>
-      <td>Active</td>
-      <td>Lookup</td>
+      <td><%= image_tag 'visible.png', alt: 'Visible?', size: '16x16' %></td>
+      <td><%= image_tag 'readonly.png', alt: 'Read Only?', size: '16x16' %></td>
+      <td><%= image_tag 'active.png', alt: 'Active?', size: '16x16' %></td>
+      <td><%= image_tag 'lookup.png', alt: 'Lookup Field?', size: '16x16' %></td>
       <td></td>
     </tr>
     </thead>
+    <tbody class="sortable">
     <% @dme_table.dme_fields.order('sort_order asc').each do |f| %>
         <%= render 'dme_fields/field_row', :f => f %>
     <% end %>
+    </tbody>
   </table>
 </form>
 

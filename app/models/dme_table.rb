@@ -26,7 +26,7 @@ class DmeTable < ActiveRecord::Base
         if !self.dme_fields.exists?(:db_column_name => c.name)
           logger.debug "Inserting new field #{c.name} for table #{self.table_name}"
           o = self.dme_fields.create(:db_column_name => c.name, :db_type => c.type, :db_scale => c.scale,
-                                     :db_limit => c.limit, :active => true)
+                                     :db_limit => c.limit, :db_precision => c.precision, :active => true)
           o.errors.each do |e|
             logger.debug e.message
           end
@@ -38,6 +38,7 @@ class DmeTable < ActiveRecord::Base
           rec.db_type = c.type
           rec.db_scale = c.scale
           rec.db_limit = c.limit
+          rec.db_precision = c.precision
           rec.save
         end
       end
@@ -51,6 +52,7 @@ class DmeTable < ActiveRecord::Base
   end
 
   def setup_connection
+
     begin
       self.ut = Connection.find_by_id(self.connection_id).uc.clone
       self.ut.table_name = self.table_name
@@ -65,6 +67,7 @@ class DmeTable < ActiveRecord::Base
       end
 
       self.ut.migration.connection = self.ut.connection
+      logger.debug "primary key on UT is #{self.ut.primary_key}"
     end
   rescue Exception => e
     logger.error "error in setup connection: " + e.message

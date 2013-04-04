@@ -8,7 +8,6 @@ DMEConstructor::Application.routes.draw do
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'
   resources :sessions, only: [:new, :create, :destroy]
-  resources :dme_fields, only: [:destroy, :update]
   resources :users
 
   resources :connections do
@@ -26,7 +25,9 @@ DMEConstructor::Application.routes.draw do
     member do
       get 'edit_table'
       get 'edit_fields'
+      put 'reorder'
     end
+    resources :dme_fields
   end
 
   # The priority is based upon order of creation:

@@ -12,6 +12,7 @@ gem 'bootstrap-sass'
 gem 'bcrypt-ruby'
 gem 'nokogiri'
 
+
 group :development, :test do
   gem 'annotate'
   gem 'rspec-rails'
@@ -30,9 +31,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

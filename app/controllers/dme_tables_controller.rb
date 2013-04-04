@@ -77,4 +77,18 @@ class DmeTablesController < ApplicationController
       end
     end
   end
+
+  def reorder
+    params[:sort].each_with_index do |s, i|
+      DmeField.find(s).update_attributes!(:sort_order => i)
+      logger.debug "#{s}, #{i}"
+    end
+    respond_to do |format|
+      format.html do
+        if request.xhr?
+          render :nothing => true, :status => :ok
+        end
+      end
+    end
+  end
 end

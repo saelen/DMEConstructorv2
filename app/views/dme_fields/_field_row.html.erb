@@ -1,15 +1,19 @@
-<tr <%= 'class=error' if !f.active %> id="<%= f.id %>">
+<% object = f %>
+<tr <%= 'class=error' if !f.active %> id="<%= f.id ||='new' %>" data-sort="sort[]_<%= f.id ||='new' %>">
   <td>
-    <input class="inline_edit" name="id" value="<%= f.id %>" hidden=true/>
-    <%= link_to(image_tag("edit_32x32.png", :border => 0, :size => '16x16', :class => 'field_edit'), '#', :class => 'field_edit') %>
-    <%= link_to(image_tag("save_32x32.png", :border => 0, :size => '16x16', :class => 'field_save'), '#', :class => 'field_save') %>
-    <%= link_to(image_tag("cancel_16.png", :border => 0, :size => '16x16', :class => 'field_cancel'), '#', :class => 'field_cancel') %>
+    <input type="hidden" class="inline_edit" name="id" value="<%= f.id ||= 'new' %>">
+    <%= link_to(image_tag("edit_32x32.png", :border => 0, :size => '16x16', :style => 'width:16px;height:16px', :class => 'field_edit'), '#', :class => 'field_edit') %>
+    <%= link_to(image_tag("save_32x32.png", :border => 0, :size => '16x16', :style => 'width:16px;height:16px', :class => 'field_save'), '#', :class => 'field_save') %>
+    <%= link_to(image_tag("cancel_16.png", :border => 0, :size => '16x16', :style => 'width:16px;height:16px', :class => 'field_cancel'), '#', :class => 'field_cancel') %>
   </td>
   <td id="td_db_column_name">
-    <span class="dme_field_label"><%= f.db_column_name %></span><input name="object[db_column_name]" class="inline_edit" type="text"/>
+    <span class="dme_field_label"><%= image_tag('key.png', :border => 0, :size => '16x16', :style => 'width:16px;height:16px', :alt => 'Primary Key') unless !f.primary_key? %><%= f.db_column_name %></span><input name="object[db_column_name]" class="inline_edit" type="text"/>
   </td>
   <td>
     <span class="dme_field_label"><%= f.db_type %></span><input class="inline_edit" name="object[db_type]" type="text"/>
+  </td>
+  <td>
+    <span class="dme_field_label"><%= f.db_precision %></span><input class="inline_edit" name="object[db_precision]" type="text"/>
   </td>
   <td>
     <span class="dme_field_label"><%= f.db_scale %></span><input class="inline_edit" name="object[db_scale]" type="text"/>
@@ -23,9 +27,42 @@
   <td>
     <span class="dme_field_label"><%= f.type %></span><input class="inline_edit" name="object[type]" type="text"/>
   </td>
-  <td style='text-align: center'><%= image_tag('checkmark.png', :size => '16x16') if f.active? %></td>
-  <td style='text-align: center'><%= image_tag('checkmark.png', :size => '16x16') if f.lookup? %></td>
+  <td style='text-align: center'>
+    <span class="dme_field_label">
+      <%= if f.visible? then
+            image_tag('checkmark.png', :size => '16x16')
+          else
+            image_tag('unchecked.png', :size => '16x16')
+          end
+      %>
+    </span>
+    <%= check_box 'object', 'visible', {class: 'inline_edit', :checked => f.visible?} %>
+  </td>
+  <td style='text-align: center'>
+    <span class="dme_field_label">
+    <%= if f.read_only? then
+          image_tag('checkmark.png', :size => '16x16')
+        else
+          image_tag('unchecked.png', :size => '16x16')
+        end %>
+    </span>
+    <%= check_box 'object', 'read_only', {class: 'inline_edit', :checked => f.read_only?} %>
+  </td>
+  <td style='text-align: center'>
+    <%= if f.active? then
+          image_tag('checkmark.png', :size => '16x16')
+        else
+          image_tag('unchecked.png', :size => '16x16')
+        end %>
+  </td>
+  <td style='text-align: center'>
+    <%= if f.lookup? then
+          image_tag('checkmark.png', :size => '16x16')
+        else
+          image_tag('unchecked.png', :size => '16x16')
+        end %>
+  </td>
   <td class='icon_16'>
-    <%= link_to image_tag("trash_32x32.png", :border => 0, :size => '16x16'), f, method: :delete, data: {confirm: 'Are you are you want to delete <'+f.db_column_name+'>?'} unless f.active? %>
+    <%= link_to image_tag("trash_32x32.png", :border => 0, :size => '16x16'), '#', :class => 'field_delete', data: {confirm: "Are you are you want to delete <#{f.db_column_name}>?  Any data in this field will be deleted and cannot be restored."} unless f.dme_table.ut.primary_key == f.db_column_name %>
   </td>
 </tr>

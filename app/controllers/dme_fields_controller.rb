@@ -1,18 +1,50 @@
 class DmeFieldsController < ApplicationController
   def destroy
     @dme_field =DmeField.find(params[:id])
-    @dme_field.destroy unless @dme_field.active?
+    @dme_field.destroy unless @dme_field.primary_key?
 
     respond_to do |format|
       format.html {
-        if @dme_field.active? then
-          flash[:error]='Cannot delete an active field'
-        else
-          flash[:info]='Removed field  <'+@dme_field.db_column_name+'>.'
+        if request.xhr?
+          if @dme_field.primary_key? then
+            render :nothing => true, :status => :internal_server_error
+          else
+            render :nothing => true, :status => :ok
+          end
         end
-        redirect_to dme_tables_url
       }
-      format.json { head :no_content }
+    end
+  end
+
+  def new
+    logger.debug "New Called"
+    logger.debug params.pretty_inspect
+
+    @dme_field = DmeTable.find(params[:dme_table_id]).dme_fields.new
+    respond_to do |format|
+      format.html do
+        render :partial => '/dme_fields/field_row', :locals => {:f => @dme_field} if request.xhr?
+      end
+    end
+  end
+
+  def create
+    logger.debug "Create Called"
+    logger.debug params.pretty_inspect
+    @dme_field = DmeTable.find(params[:dme_table_id]).dme_fields.new(params[:object])
+    respond_to do |format|
+      if @dme_field.save
+        @dme_field.reload
+        @dme_field.dme_table.check_fields
+        @dme_field.reload
+        format.html do
+          render :partial => '/dme_fields/field_row', :locals => {:f => @dme_field} if request.xhr?
+        end
+      else
+        format.html do
+          render :nothing => true, :status => :internal_server_error
+        end
+      end
     end
   end
 
@@ -21,16 +53,20 @@ class DmeFieldsController < ApplicationController
     respond_to do |format|
       begin
         @dme_field.update_attributes(params[:object])
+        @dme_field.reload
         @dme_field.dme_table.check_fields
+        @dme_field.reload
         format.html do
-          render :partial => 'field_row', :locals => {:f => DmeField.find(params[:id])} if request.xhr?
+          render :partial => 'field_row', :locals => {:f => @dme_field} if request.xhr?
         end
       rescue Exception => e
+        @dme_field.reload
         @dme_field.dme_table.check_fields
-        logger.debug "Exception Class #{e.class}"
-        logger.debug "update failed for field with message #{e.message}"
+        @dme_field.reload
+        logger.debug "Exception Class caught =>#{e.class}."
+        logger.debug "Update failed for field with message =>#{e.message}."
         format.html do
-          render :partial => 'field_row', :locals => {:f => DmeField.find(params[:id])},
+          render :partial => 'field_row', :locals => {:f => @dme_field},
                  :status => :internal_server_error if request.xhr?
         end
       end
