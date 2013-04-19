@@ -22,12 +22,12 @@ hide_test_in_process = () ->
 
 adjust_link = () ->
   $("#test_connection").attr('href', test_connection_href +
-  '?adapter=' + encodeURIComponent($("#connection_adapter").val()) +
-  '&host=' + encodeURIComponent($("#connection_host").val()) +
-  '&defaultdatabase=' + encodeURIComponent($("#connection_default_database").val()) +
-  '&username=' + encodeURIComponent($("#connection_username").val()) +
-  '&password=' + encodeURIComponent($("#connection_password").val()) +
-  '&name=' + encodeURIComponent($("#connection_name").val())
+  '?adapter=' + encodeURIComponent($("#dme_connection_adapter").val()) +
+  '&host=' + encodeURIComponent($("#dme_connection_host").val()) +
+  '&defaultdatabase=' + encodeURIComponent($("#dme_connection_default_database").val()) +
+  '&username=' + encodeURIComponent($("#dme_connection_username").val()) +
+  '&password=' + encodeURIComponent($("#dme_connection_password").val()) +
+  '&name=' + encodeURIComponent($("#dme_connection_name").val())
   )
 
 $(document).ready ->

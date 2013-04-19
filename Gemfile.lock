@@ -58,6 +58,8 @@ GEM
       jquery-rails
       railties (>= 3.1.0)
     json (1.7.7)
+    kendoui-rails (0.1.0)
+      jquery-rails
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -135,6 +137,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
   jquery-ui-rails
+  kendoui-rails
   nokogiri
   rails (= 3.2.12)
   rspec-rails

@@ -10,7 +10,7 @@ DMEConstructor::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :users
 
-  resources :connections do
+  resources :dme_connections do
     collection do
       get 'test'
       get 'database_list'
@@ -25,6 +25,7 @@ DMEConstructor::Application.routes.draw do
     member do
       get 'edit_table'
       get 'edit_fields'
+      get 'edit_layout'
       put 'reorder'
     end
     resources :dme_fields

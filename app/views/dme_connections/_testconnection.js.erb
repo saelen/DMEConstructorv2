@@ -1,15 +1,16 @@
-<%@test_connection_results = @connection.test_connection
+<%
+@test_connection_results = @dme_connection.test_connection
 if @test_connection_results[:success]
 %>
 
 $("#test_connection_results")
         .attr('class', 'alert alert-success')
-        .html('<b><%= @connection.name %></b> successfully connected.');
+        .html('<b><%= @dme_connection.name %></b> successfully connected.');
 $("#form_submit_btn").removeClass("disabled").attr("href", "#").attr('onclick', "$('form').submit()");
 <%else%>
 $("#test_connection_results")
         .attr('class', 'alert alert-error')
-        .html('<b><%= @connection.name %></b> Failed.<br /><%= @test_connection_results[:message] %>');
+        .html('<b><%= @dme_connection.name %></b> Failed.<br /><%= @test_connection_results[:message] %>');
 <%end%>
 $("#edit").attr("href", $("#edit").attr("data")).attr("data-method", "get").removeClass("disabled");
 

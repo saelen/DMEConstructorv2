@@ -14,15 +14,15 @@
   <% @dme_tables.each do |dme_table| %>
       <tr>
         <td><%= dme_table.display_name %></td>
-        <td><%= if dme_table.connection then
-                  dme_table.connection.name
+        <td><%= if dme_table.dme_connection then
+                  dme_table.dme_connection.name
                 else
                   '<CONNECTION MISSING>'
                 end %></td>
         <td><%= dme_table.database_name %></td>
         <td class='icon_16'><%= link_to image_tag("MagnifyingGlass_16x16.png", :border => 0, :size => '16x16'), dme_table %></td>
         <td class='icon_16'><%= link_to image_tag("edit_32x32.png", :border => 0, :size => '16x16'), edit_table_dme_table_path(dme_table) %></td>
-        <td class='icon_16'><%= link_to image_tag("trash_32x32.png", :border => 0, :size => '16x16'), dme_table, method: :delete, data: {confirm: 'Are you are you want to delete <'+dme_table.display_name+'>?'} %></td>
+        <td class='icon_16'><%= link_to image_tag("trash_32x32.png", :border => 0, :size => '16x16'), dme_table, method: :delete, data: {confirm: 'Are you are you want to delete <'+dme_table.display_name+'>?  The existing data will still exist in the underlying database.'} %></td>
       </tr>
   <% end %>
 </table>

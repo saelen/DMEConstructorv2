@@ -1,8 +1,8 @@
 class DmeTablesController < ApplicationController
   def update
     @dme_table = DmeTable.find(params[:id])
-    @connections = Connection.all
-    @database_names = @dme_table.connection.uc.connection.select_values('sp_databases')
+    @dme_connections = DmeConnection.all
+    @database_names = @dme_table.dme_connection.uc.connection.select_values('sp_databases')
     respond_to do |format|
       if @dme_table.update_attributes(params[:dme_table])
         format.html {
@@ -22,13 +22,25 @@ class DmeTablesController < ApplicationController
   end
 
   def new
-    @connections = Connection.all
+    @dme_connections = DmeConnection.all
     @dme_table = DmeTable.new
-    @database_names = Connection.find_by_id(1).uc.connection.select_values('sp_databases')
+    @database_names = DmeConnection.find(1).uc.connection.select_values('sp_databases')
 
     respond_to do |format|
       format.html
       format.json { render json: @dme_table }
+    end
+  end
+
+  def destroy
+    @dme = DmeTable.find(params[:id])
+    @dme.destroy
+    respond_to do |format|
+      format.html {
+        flash[:info]='Table <'+@dme.display_name+'> has been deleted.'
+        redirect_to dme_tables_url
+      }
+      format.json { head :no_content }
     end
   end
 
@@ -37,6 +49,7 @@ class DmeTablesController < ApplicationController
 
     respond_to do |format|
       if @dme_table.save
+        @dme_table.check_fields
         format.html {
           flash[:info]='Table <'+@dme_table.display_name+'> was successfully created.'
           redirect_to @dme_table
@@ -60,11 +73,16 @@ class DmeTablesController < ApplicationController
 
   def edit_table
     @dme_table = DmeTable.find(params[:id])
-    @connections = Connection.all
-    @database_names = @dme_table.connection.uc.connection.select_values('sp_databases')
+    @dme_connections = DmeConnection.all
+    @database_names = @dme_table.dme_connection.uc.connection.select_values('sp_databases')
   end
 
   def edit_fields
+    @dme_table = DmeTable.find(params[:id])
+    @dme_table.check_fields
+  end
+
+  def edit_layout
     @dme_table = DmeTable.find(params[:id])
   end
 
@@ -81,7 +99,7 @@ class DmeTablesController < ApplicationController
   def reorder
     params[:sort].each_with_index do |s, i|
       DmeField.find(s).update_attributes!(:sort_order => i)
-      logger.debug "#{s}, #{i}"
+#      logger.debug "#{s}, #{i}"
     end
     respond_to do |format|
       format.html do

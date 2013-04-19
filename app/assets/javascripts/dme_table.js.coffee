@@ -41,6 +41,29 @@ restore_edit = () ->
 $(document).ready ->
   restore_edit()
 
+inline_save = (row) ->
+  #Change posting and URLs to see if we are a new entry or modification of an existing
+  url = 'dme_fields'
+  type = 'PUT'
+  if row.attr("id") == 'new'
+    type = 'POST'
+  else
+    url += '/' + row.attr("id")
+
+  $.ajax
+    url: url
+    type: type
+    data: $("form").serialize()
+    error: (xhr) ->
+      row.replaceWith xhr.responseText
+      restore_edit()
+    success: (data) ->
+      row.replaceWith data
+      restore_edit()
+    always: ->
+      alert ($("form").serialize())
+      restore_edit()
+
 set_edit = (row) ->
   $("#inline_add_record").addClass("disabled")
   hide_all_edit_icons()
@@ -82,31 +105,13 @@ $(document).on "click", ".inline_edit a.field_delete", (e)->
     success: (data) ->
       row.remove()
 
+
 $(document).on "click", ".inline_edit a.field_save", (e)->
-  row = $(this).parent("td").parent("tr")
+  inline_save($(this).parent("td").parent("tr"))
 
-
-  #Change posting and URLs to see if we are a new entry or modification of an existing
-  url = 'dme_fields'
-  type = 'PUT'
-  if row.attr("id") == 'new'
-    type = 'POST'
-  else
-    url += '/' + row.attr("id")
-
-  $.ajax
-    url: url
-    type: type
-    data: $("form").serialize()
-    error: (xhr) ->
-      row.replaceWith xhr.responseText
-      restore_edit()
-    success: (data) ->
-      row.replaceWith data
-      restore_edit()
-    always: ->
-      alert ($("form").serialize())
-      restore_edit()
+$(document).on "keypress ", ".inline_edit input", (e)->
+  if e.which == 13
+    inline_save($(this).parent("td").parent("tr"))
 
 fixHelper = (e, tr) ->
   $originals = tr.children()
@@ -116,7 +121,7 @@ fixHelper = (e, tr) ->
   $helper
 
 $(document).ready ->
-  $("tbody").sortable(
+  $("tbody.sortable").sortable(
     helper: fixHelper,
     cursor: 'move',
     stop: (event, ui) ->
@@ -136,3 +141,17 @@ $(document).ready ->
       $(".inline_edit > tbody:last").append(data)
       set_edit($(".inline_edit tr#new"))
     )
+
+$(document).ready ->
+  $(".combobox").combobox()
+
+$(document).ready ->
+  $(".resizeable").kendoGrid({
+    batch:
+    {}
+    toolbar: ["create", "save", "cancel"],
+    sortable: true,
+    resizable: true,
+    pageable: true,
+    navigateable: true
+  })

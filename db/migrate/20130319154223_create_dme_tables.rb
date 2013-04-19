@@ -3,7 +3,7 @@ class CreateDmeTables < ActiveRecord::Migration
     create_table :dme_tables do |t|
       t.string :display_name
       t.string :database_name
-      t.references :connection
+      t.references :dme_connection
 
       t.timestamps
     end

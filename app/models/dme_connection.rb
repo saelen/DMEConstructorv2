@@ -1,4 +1,4 @@
-class Connection < ActiveRecord::Base
+class DmeConnection < ActiveRecord::Base
   has_many :dme_tables
 
   attr_accessible :name, :adapter, :default_database, :host, :password, :username

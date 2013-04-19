@@ -32,8 +32,9 @@ class DmeField < ActiveRecord::Base
   end
 
   def create
-    logger.debug "create method called what?"
+    logger.debug "DME Field -> Create"
     if !(self.dme_table.ut.columns.any? { |s| s.name == self.db_column_name })
+      logger.debug "Underlying field does not exist, setting up migration"
       #Our column does not exist yet .... lets add it.
       add_options = {
           :limit => self.db_limit,
@@ -50,9 +51,11 @@ class DmeField < ActiveRecord::Base
 
   #Prior to deleting the entry for this table remove the column from the underlying construction table
   def destroy
+    logger.debug "DME Field -> Delete"
     if self.dme_table.ut.columns.any? { |s| s.name == self.db_column_name }
       self.dme_table.ut.migration.remove_column self.dme_table.table_name.to_sym, self.db_column_name.to_sym
     end
+    super
   end
 
   def primary_key?

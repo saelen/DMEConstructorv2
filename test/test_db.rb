@@ -39,7 +39,7 @@ class UserTable
 
   def testconnection
     begin
-      @message = @utar.connection.active?
+      @message = @utar.dme_connection.active?
     rescue => e
       {:success => false, :message => e.message}
     else

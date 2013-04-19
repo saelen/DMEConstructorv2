@@ -1,16 +1,16 @@
-<%= form_for(@connection, :html => {:autocomplete => :off, :id => 'connection_form', :class => 'form-horizontal'}) do |f| %>
-    <% if @connection.errors.any? %>
+<%= form_for(@dme_connection, :html => {:autocomplete => :off, :id => 'connection_form', :class => 'form-horizontal'}) do |f| %>
+    <% if @dme_connection.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(@connection.errors.count, "error") %> prohibited this connection from being saved:</h2>
+          <h2><%= pluralize(@dme_connection.errors.count, "error") %> prohibited this connection from being saved:</h2>
 
           <ul>
-            <% @connection.errors.full_messages.each do |msg| %>
+            <% @dme_connection.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
             <% end %>
           </ul>
         </div>
     <% end %>
-    <div class="control-group<%= if @connection.errors['name'].count > 0 then
+    <div class="control-group<%= if @dme_connection.errors['name'].count > 0 then
                                    ' error'
                                  end %> ">
       <%= f.label :name, :class => 'control-label' %>
@@ -18,7 +18,7 @@
         <%= f.text_field :name, :placeholder => 'Name' %>
       </div>
     </div>
-    <div class="control-group<%= if @connection.errors['adapter'].count > 0 then
+    <div class="control-group<%= if @dme_connection.errors['adapter'].count > 0 then
                                    ' error'
                                  end %>">
       <%= f.label :adapter, :class => 'control-label' %>
@@ -26,7 +26,7 @@
         <%= f.select :adapter, [['SQL Server', 'sqlserver']] %>
       </div>
     </div>
-    <div class="control-group<%= if @connection.errors['host'].count > 0 then
+    <div class="control-group<%= if @dme_connection.errors['host'].count > 0 then
                                    ' error'
                                  end %>">
       <%= f.label :host, :class => 'control-label' %>
@@ -34,7 +34,7 @@
         <%= f.text_field :host, :placeholder => 'Host' %>
       </div>
     </div>
-    <div class="control-group<%= if @connection.errors['default_database'].count > 0 then
+    <div class="control-group<%= if @dme_connection.errors['default_database'].count > 0 then
                                    ' error'
                                  end %>">
       <%= f.label :default_database, :class => 'control-label' %>
@@ -42,7 +42,7 @@
         <%= f.text_field :default_database, :placeholder => 'Default Database' %>
       </div>
     </div>
-    <div class="control-group<%= if @connection.errors['username'].count > 0 then
+    <div class="control-group<%= if @dme_connection.errors['username'].count > 0 then
                                    ' error'
                                  end %>">
       <%= f.label :username, :class => 'control-label' %>
@@ -50,7 +50,7 @@
         <%= f.text_field :username, :placeholder => 'Username' %>
       </div>
     </div>
-    <div class="control-group<%= if @connection.errors['password'].count > 0 then
+    <div class="control-group<%= if @dme_connection.errors['password'].count > 0 then
                                    ' error'
                                  end %>">
       <%= f.label :password, :class => 'control-label' %>
@@ -59,7 +59,7 @@
       </div>
     </div>
     <div class="btn-group">
-      <%= link_to 'Test Connection', test_connections_path, :id => 'test_connection',
+      <%= link_to 'Test Connection', test_dme_connections_path, :id => 'test_connection',
                   :remote => true, :method => 'get', :class => 'btn btn-primary'
       %>
       <%= form_submit_button %>

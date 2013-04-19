@@ -19,12 +19,12 @@
         <%= f.text_field :display_name, :placeholder => 'Display Name' %>
       </div>
     </div>
-    <div class="control-group<%= if @dme_table.errors['connection_id'].count > 0 then
+    <div class="control-group<%= if @dme_table.errors['dme_connection_id'].count > 0 then
                                    ' error'
                                  end %> ">
-      <%= f.label :connection_id, :class => 'control-label' %>
+      <%= f.label :dme_connection_id, :class => 'control-label' %>
       <div class="controls">
-        <%= f.select 'connection_id', options_from_collection_for_select(@connections, 'id', 'name', @dme_table.connection_id ||= @connections.first().id) %>
+        <%= f.select 'dme_connection_id', options_from_collection_for_select(@dme_connections, 'id', 'name', @dme_table.dme_connection_id ||= @dme_connections.first().id) %>
       </div>
     </div>
     <div class="control-group<%= if @dme_table.errors['database_name'].count > 0 then
@@ -32,10 +32,10 @@
                                  end %> ">
       <%= f.label :database_name, :class => 'control-label' %>
       <div class="controls">
-        <% if @dme_table.connection then %>
-            <%= f.select 'database_name', options_for_select(@dme_table.connection.database_list, @dme_table.database_name) %>
+        <% if @dme_table.dme_connection then %>
+            <%= f.select 'database_name', options_for_select(@dme_table.dme_connection.database_list, @dme_table.database_name) %>
         <% else %>
-            <%= f.select 'database_name', options_for_select(@connections.first().database_list) %>
+            <%= f.select 'database_name', options_for_select(@dme_connections.first().database_list) %>
         <% end %>
       </div>
     </div>
@@ -44,11 +44,7 @@
                                  end %> ">
       <%= f.label :table_name, :class => 'control-label' %>
       <div class="controls">
-        <% if @dme_table.connection.default_database then %>
-            <%= f.select 'table_name', options_for_select(@dme_table.connection.table_list, @dme_table.table_name) %>
-        <% else %>
-            <%= f.select 'table_name', options_for_select(@connections.first().table_list) %>
-        <% end %>
+        <%= f.text_field :table_name, :placeholder => 'Database Table Name' %>
       </div>
     </div>
     <div class="actions">

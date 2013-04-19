@@ -1,0 +1,6 @@
+<% provide(:title, @dme_connection.name) %>
+<h1><%= link_to 'Connections', dme_connections_path %> > Editing Connection</h1>
+
+<%= render 'form', :form_submit_button =>
+        link_to('Update Connection', 'javascript:void(0)', class: 'btn btn-primary disabled',
+                id: 'form_submit_btn', data: edit_dme_connection_path) %>

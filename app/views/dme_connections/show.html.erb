@@ -1,0 +1,32 @@
+<% provide(:title, @dme_connection.name) %>
+<p id="notice"><%= notice %></p>
+<h1>
+  <%= link_to 'Connections', dme_connections_path %> > <%= @dme_connection.name %>
+</h1>
+<table class="table table-striped">
+  <tr>
+    <td>Name</td>
+    <td><%= @dme_connection.name %></td>
+  </tr>
+  <tr>
+    <td>Adapter</td>
+    <td><%= @dme_connection.adapter %></td>
+  </tr>
+  <tr>
+    <td>Host</td>
+    <td id="host"><%= @dme_connection.host %></td>
+  </tr>
+  <tr>
+    <td>Default Database</td>
+    <td><%= @dme_connection.default_database %></td>
+  </tr>
+</table>
+<div class="btn-group">
+  <%= link_to 'Test Connection', test_dme_connections_path(id: @dme_connection.id), :id => 'test_connection',
+              :remote => true, :method => 'get', :class => 'btn btn-primary'
+  %>
+  <%= link_to 'Edit', edit_dme_connection_path(@dme_connection), :id => 'edit', :method => 'get', :class => 'btn btn-primary',
+              data: edit_dme_connection_path(@dme_connection) %>
+</div>
+<%= render 'testconnection' %>
+

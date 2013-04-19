@@ -32,6 +32,7 @@ class DmeFieldsController < ApplicationController
     logger.debug "Create Called"
     logger.debug params.pretty_inspect
     @dme_field = DmeTable.find(params[:dme_table_id]).dme_fields.new(params[:object])
+    @dme_field.sort_order = DmeTable.find(params[:dme_table_id]).dme_fields.count
     respond_to do |format|
       if @dme_field.save
         @dme_field.reload

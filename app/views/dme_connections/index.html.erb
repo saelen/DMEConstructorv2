@@ -1,0 +1,28 @@
+<% provide(:title, 'Connections') %>
+<h1>Listing Connections</h1>
+
+<table class='table table-bordered table-striped table-condensed'>
+  <tr>
+    <th>Name</th>
+    <th>Adapter</th>
+    <th>Host</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @dme_connections.each do |dme_connection| %>
+      <tr>
+        <td><%= dme_connection.name %></td>
+        <td><%= dme_connection.adapter %></td>
+        <td><%= dme_connection.host %></td>
+        <td class='icon_16'><%= link_to image_tag("MagnifyingGlass_16x16.png", :border => 0, :size => '16x16'), dme_connection %></td>
+        <td class='icon_16'><%= link_to image_tag("edit_32x32.png", :border => 0, :size => '16x16'), edit_dme_connection_path(dme_connection) %></td>
+        <td class='icon_16'><%= link_to image_tag("trash_32x32.png", :border => 0, :size => '16x16'), dme_connection, method: :delete, data: {confirm: 'Are you are you want to delete <'+dme_connection.name+'>?'} %></td>
+      </tr>
+  <% end %>
+</table>
+
+<br/>
+
+<%= button_to 'New Connection', new_dme_connection_path, :method => 'get', :class => 'btn btn-primary' %>
