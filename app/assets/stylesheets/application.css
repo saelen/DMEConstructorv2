@@ -9,7 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require kendo/kendo.common.min
- *= require kendo/kendo.default.min
+ *= require kendo/kendo.bootstrap.min
  *= require_self
  *= require_tree .
  */

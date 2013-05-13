@@ -124,3 +124,16 @@ input.inline_edit {
   cursor: -moz-grabbing;
   cursor: -webkit-grabbing;
 }
+
+//stop the cells from wrapping around, causes awfulness editing
+td[role="gridcell"] {
+  white-space: nowrap
+}
+
+input[type="text"] {
+  height: auto;
+}
+
+table[role="grid"] {
+  max-width: none;
+}

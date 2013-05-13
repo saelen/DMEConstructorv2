@@ -147,11 +147,13 @@ $(document).ready ->
 
 $(document).ready ->
   $(".resizeable").kendoGrid({
-    batch:
-    {}
+    editable: true,
     toolbar: ["create", "save", "cancel"],
     sortable: true,
     resizable: true,
+    reorderable: true,
+    columnMenu: true,
     pageable: true,
-    navigateable: true
+    navigateable: true,
+    height: 430
   })
